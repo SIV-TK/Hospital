@@ -136,100 +136,115 @@ export default function PharmacyPage() {
     <MainLayout>
       <div className="container mx-auto p-6 max-w-7xl">
         {/* Header */}
-        <div className="flex items-center gap-4 mb-8">
-          <div className="p-4 bg-blue-100 rounded-full">
-            <Pill className="h-8 w-8 text-blue-600" />
-          </div>
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              Pharmacy Department
-            </h1>
-            <p className="text-xl text-gray-600">
-              Prescription Management & Medication Dispensing
-            </p>
-            <div className="flex items-center gap-2 mt-2">
-              <Badge variant="outline" className="text-blue-600">
-                <Package className="h-4 w-4 mr-1" />
-                {prescriptions.length} Total Prescriptions
-              </Badge>
-              <Badge variant="outline" className="text-green-600">
-                <CheckCircle className="h-4 w-4 mr-1" />
-                {readyPrescriptions.length} Ready for Pickup
-              </Badge>
+        <div className="relative mb-8 p-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-700 rounded-2xl text-white overflow-hidden">
+          <div className="absolute inset-0 bg-black/10"></div>
+          <div className="relative flex items-center gap-4">
+            <div className="p-4 bg-white/20 rounded-2xl backdrop-blur-sm">
+              <Pill className="h-10 w-10" />
+            </div>
+            <div>
+              <h1 className="text-4xl font-bold mb-2">Pharmacy Department</h1>
+              <p className="text-xl text-blue-100">AI-Powered Prescription Management & Smart Dispensing</p>
+              <div className="flex items-center gap-3 mt-3">
+                <Badge className="bg-white/20 text-white border-white/30">
+                  <Package className="h-4 w-4 mr-1" />
+                  {prescriptions.length} Total Prescriptions
+                </Badge>
+                <Badge className="bg-white/20 text-white border-white/30">
+                  <CheckCircle className="h-4 w-4 mr-1" />
+                  {readyPrescriptions.length} Ready for Pickup
+                </Badge>
+                <Badge className="bg-white/20 text-white border-white/30">
+                  <Brain className="h-4 w-4 mr-1" />
+                  AI Analysis Active
+                </Badge>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Status Overview */}
         <div className="grid md:grid-cols-6 gap-4 mb-8">
-          <Card>
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-yellow-50 to-orange-50 hover:shadow-xl transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Pending</p>
-                  <p className="text-2xl font-bold text-yellow-600">{pendingPrescriptions.length}</p>
+                  <p className="text-sm font-medium text-yellow-700">Pending</p>
+                  <p className="text-3xl font-bold text-yellow-600">{pendingPrescriptions.length}</p>
                 </div>
-                <Clock className="h-8 w-8 text-yellow-600" />
+                <div className="p-3 bg-yellow-100 rounded-full">
+                  <Clock className="h-8 w-8 text-yellow-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-purple-50 to-indigo-50 hover:shadow-xl transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">AI Analyzed</p>
-                  <p className="text-2xl font-bold text-purple-600">{aiAnalyzedPrescriptions.length}</p>
+                  <p className="text-sm font-medium text-purple-700">AI Analyzed</p>
+                  <p className="text-3xl font-bold text-purple-600">{aiAnalyzedPrescriptions.length}</p>
                 </div>
-                <Brain className="h-8 w-8 text-purple-600" />
+                <div className="p-3 bg-purple-100 rounded-full">
+                  <Brain className="h-8 w-8 text-purple-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-cyan-50 hover:shadow-xl transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Reviewed</p>
-                  <p className="text-2xl font-bold text-blue-600">{reviewedPrescriptions.length}</p>
+                  <p className="text-sm font-medium text-blue-700">Reviewed</p>
+                  <p className="text-3xl font-bold text-blue-600">{reviewedPrescriptions.length}</p>
                 </div>
-                <Eye className="h-8 w-8 text-blue-600" />
+                <div className="p-3 bg-blue-100 rounded-full">
+                  <Eye className="h-8 w-8 text-blue-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-orange-50 to-red-50 hover:shadow-xl transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Prepared</p>
-                  <p className="text-2xl font-bold text-orange-600">{preparedPrescriptions.length}</p>
+                  <p className="text-sm font-medium text-orange-700">Prepared</p>
+                  <p className="text-3xl font-bold text-orange-600">{preparedPrescriptions.length}</p>
                 </div>
-                <Package className="h-8 w-8 text-orange-600" />
+                <div className="p-3 bg-orange-100 rounded-full">
+                  <Package className="h-8 w-8 text-orange-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-emerald-50 hover:shadow-xl transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Ready</p>
-                  <p className="text-2xl font-bold text-green-600">{readyPrescriptions.length}</p>
+                  <p className="text-sm font-medium text-green-700">Ready</p>
+                  <p className="text-3xl font-bold text-green-600">{readyPrescriptions.length}</p>
                 </div>
-                <CheckCircle className="h-8 w-8 text-green-600" />
+                <div className="p-3 bg-green-100 rounded-full">
+                  <CheckCircle className="h-8 w-8 text-green-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-0 shadow-lg bg-gradient-to-br from-gray-50 to-slate-50 hover:shadow-xl transition-all duration-300">
             <CardContent className="p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">Dispensed</p>
-                  <p className="text-2xl font-bold text-gray-600">{dispensedPrescriptions.length}</p>
+                  <p className="text-sm font-medium text-gray-700">Dispensed</p>
+                  <p className="text-3xl font-bold text-gray-600">{dispensedPrescriptions.length}</p>
                 </div>
-                <Users className="h-8 w-8 text-gray-600" />
+                <div className="p-3 bg-gray-100 rounded-full">
+                  <Users className="h-8 w-8 text-gray-600" />
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -237,7 +252,7 @@ export default function PharmacyPage() {
 
         {/* Prescriptions Tabs */}
         <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full grid-cols-8">
+          <TabsList className="grid w-full grid-cols-8 bg-gradient-to-r from-gray-50 to-gray-100 p-2 rounded-xl">
             <TabsTrigger value="all">All Prescriptions</TabsTrigger>
             <TabsTrigger value="dashboard">Patient Dashboard</TabsTrigger>
             <TabsTrigger value="pending">Pending ({pendingPrescriptions.length})</TabsTrigger>
@@ -266,7 +281,7 @@ export default function PharmacyPage() {
                     Inline Patients ({inlinePatients.length})
                   </CardTitle>
                   <CardDescription>
-                    Patients currently waiting for prescriptions
+                    Click on a patient to view prescription details and AI analysis
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -275,7 +290,11 @@ export default function PharmacyPage() {
                       <p className="text-gray-500 text-center py-8">No patients in line</p>
                     ) : (
                       inlinePatients.map((prescription) => (
-                        <div key={prescription.id} className="flex items-center justify-between p-3 border rounded-lg bg-orange-50">
+                        <div 
+                          key={prescription.id} 
+                          className="flex items-center justify-between p-3 border rounded-lg bg-orange-50 hover:bg-orange-100 cursor-pointer transition-colors"
+                          onClick={() => setSelectedPrescription(prescription)}
+                        >
                           <div className="flex items-center gap-3">
                             <div className="p-2 bg-orange-100 rounded-full">
                               <User className="h-4 w-4 text-orange-600" />
@@ -459,10 +478,11 @@ export default function PharmacyPage() {
         </Tabs>
 
         {/* AI Analysis Modal/Sidebar */}
-        {selectedPrescription && selectedPrescription.aiAnalysis && (
-          <AIAnalysisPanel 
+        {selectedPrescription && (
+          <PrescriptionDetailsPanel 
             prescription={selectedPrescription}
             onClose={() => setSelectedPrescription(null)}
+            onStatusUpdate={updatePrescriptionStatus}
           />
         )}
       </div>
@@ -702,7 +722,303 @@ function PrescriptionsList({ prescriptions, onStatusUpdate, onSelectPrescription
   );
 }
 
-// AI Analysis Panel Component
+// Prescription Details Panel Component
+interface PrescriptionDetailsPanelProps {
+  prescription: PrescriptionRequest;
+  onClose: () => void;
+  onStatusUpdate: (id: string, status: PrescriptionRequest['status'], notes?: string) => void;
+}
+
+function PrescriptionDetailsPanel({ prescription, onClose, onStatusUpdate }: PrescriptionDetailsPanelProps) {
+  return (
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="sticky top-0 bg-white border-b p-4 flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-bold text-gray-900">Prescription Details</h2>
+            <p className="text-sm text-gray-600">
+              Patient: {prescription.patientName} • Dr. {prescription.doctorName} • {prescription.department}
+            </p>
+          </div>
+          <Button variant="outline" onClick={onClose}>
+            ✕
+          </Button>
+        </div>
+
+        <div className="p-6 space-y-6">
+          {/* Prescription Overview */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-blue-600" />
+                Prescription Overview
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold mb-3">Patient Information</h4>
+                  <div className="space-y-2 text-sm">
+                    <p><strong>Name:</strong> {prescription.patientName}</p>
+                    <p><strong>Patient ID:</strong> {prescription.patientId}</p>
+                    <p><strong>Diagnosis:</strong> {prescription.diagnosis}</p>
+                    <div><strong>Priority:</strong> <Badge className={getPriorityColor(prescription.priority)}>{prescription.priority}</Badge></div>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-3">Prescription Details</h4>
+                  <div className="space-y-2 text-sm">
+                    <p><strong>Prescribed by:</strong> Dr. {prescription.doctorName}</p>
+                    <p><strong>Department:</strong> {prescription.department}</p>
+                    <p><strong>Date:</strong> {new Date(prescription.prescribedAt).toLocaleDateString()}</p>
+                    <div><strong>Status:</strong> <Badge className={getStatusColor(prescription.status)}>{prescription.status}</Badge></div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Medications */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Pill className="h-5 w-5 text-green-600" />
+                Prescribed Medications
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid gap-4">
+                {prescription.medications.map((med: any, index: number) => (
+                  <div key={index} className="p-4 border rounded-lg bg-green-50">
+                    <div className="flex justify-between items-start mb-3">
+                      <h5 className="font-semibold text-green-800">{med.name}</h5>
+                      <Badge variant="outline">{med.duration}</Badge>
+                    </div>
+                    <div className="grid md:grid-cols-3 gap-4 text-sm">
+                      <div>
+                        <p><strong>Dosage:</strong> {med.dosage}</p>
+                        <p><strong>Strength:</strong> {med.strength}</p>
+                        <p><strong>Route:</strong> {med.route}</p>
+                      </div>
+                      <div>
+                        <p><strong>Frequency:</strong> {med.frequency}</p>
+                        <p><strong>Quantity:</strong> {med.quantity}</p>
+                        <p><strong>Refills:</strong> {med.refills}</p>
+                      </div>
+                      <div>
+                        <p><strong>Instructions:</strong></p>
+                        <p className="text-gray-600">{med.instructions}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* AI Analysis */}
+          {prescription.aiAnalysis && (
+            <AIAnalysisSection analysis={prescription.aiAnalysis} />
+          )}
+
+          {/* Action Buttons */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Pharmacy Actions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex gap-3 flex-wrap">
+                {prescription.status === 'pending' && (
+                  <div className="flex items-center gap-2 p-3 bg-yellow-50 rounded-lg w-full">
+                    <Clock className="h-5 w-5 text-yellow-600" />
+                    <span className="text-yellow-700">Waiting for AI analysis to complete...</span>
+                  </div>
+                )}
+
+                {prescription.status === 'ai_analyzed' && (
+                  <Button 
+                    onClick={() => {
+                      onStatusUpdate(prescription.id!, 'pharmacist_reviewed');
+                      onClose();
+                    }}
+                    className="bg-blue-600 hover:bg-blue-700"
+                  >
+                    <Eye className="h-4 w-4 mr-2" />
+                    Review & Approve Prescription
+                  </Button>
+                )}
+                
+                {prescription.status === 'pharmacist_reviewed' && (
+                  <Button 
+                    onClick={() => {
+                      onStatusUpdate(prescription.id!, 'prepared');
+                      onClose();
+                    }}
+                    className="bg-orange-600 hover:bg-orange-700"
+                  >
+                    <Package className="h-4 w-4 mr-2" />
+                    Start Medication Preparation
+                  </Button>
+                )}
+
+                {prescription.status === 'prepared' && (
+                  <Button 
+                    onClick={() => {
+                      onStatusUpdate(prescription.id!, 'ready');
+                      onClose();
+                    }}
+                    className="bg-green-600 hover:bg-green-700"
+                  >
+                    <CheckCircle className="h-4 w-4 mr-2" />
+                    Mark Ready for Patient Pickup
+                  </Button>
+                )}
+                
+                {prescription.status === 'ready' && (
+                  <Button 
+                    onClick={() => {
+                      onStatusUpdate(prescription.id!, 'dispensed');
+                      onClose();
+                    }}
+                    className="bg-gray-600 hover:bg-gray-700"
+                  >
+                    <Users className="h-4 w-4 mr-2" />
+                    Dispense to Patient
+                  </Button>
+                )}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Helper functions
+function getPriorityColor(priority: PrescriptionRequest['priority']) {
+  switch (priority) {
+    case 'urgent': return 'bg-red-500 text-white';
+    case 'high': return 'bg-orange-500 text-white';
+    case 'normal': return 'bg-blue-500 text-white';
+    case 'low': return 'bg-gray-500 text-white';
+    default: return 'bg-gray-500 text-white';
+  }
+}
+
+function getStatusColor(status: PrescriptionRequest['status']) {
+  switch (status) {
+    case 'pending': return 'bg-yellow-100 text-yellow-800';
+    case 'ai_analyzed': return 'bg-purple-100 text-purple-800';
+    case 'pharmacist_reviewed': return 'bg-blue-100 text-blue-800';
+    case 'prepared': return 'bg-orange-100 text-orange-800';
+    case 'ready': return 'bg-green-100 text-green-800';
+    case 'dispensed': return 'bg-gray-100 text-gray-800';
+    default: return 'bg-gray-100 text-gray-800';
+  }
+}
+
+// AI Analysis Section Component
+function AIAnalysisSection({ analysis }: { analysis: AIPharmacyAnalysis }) {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Brain className="h-5 w-5 text-purple-600" />
+          AI Analysis & Patient Education
+        </CardTitle>
+        <div className="flex items-center gap-2">
+          <Badge className="bg-purple-100 text-purple-800">
+            {analysis.confidence}% Confidence
+          </Badge>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <Tabs defaultValue="effects" className="w-full">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="effects">Effects</TabsTrigger>
+            <TabsTrigger value="food">Food Advice</TabsTrigger>
+            <TabsTrigger value="side-effects">Side Effects</TabsTrigger>
+            <TabsTrigger value="education">Patient Education</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="effects" className="mt-4">
+            <div className="space-y-4">
+              {analysis.medicationEffects.map((effect, index) => (
+                <div key={index} className="p-4 border rounded-lg bg-blue-50">
+                  <h4 className="font-semibold text-blue-800 mb-2">{effect.medication}</h4>
+                  <p className="text-blue-700 mb-2">{effect.primaryEffect}</p>
+                  <div className="text-sm text-blue-600">
+                    <p><strong>Onset:</strong> {effect.onsetTime} | <strong>Duration:</strong> {effect.duration}</p>
+                    <p><strong>Mechanism:</strong> {effect.mechanismOfAction}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="food" className="mt-4">
+            <div className="space-y-4">
+              {analysis.foodAdvice.map((advice, index) => (
+                <div key={index} className="p-4 border rounded-lg bg-green-50">
+                  <h4 className="font-semibold text-green-800 mb-2">{advice.medication}</h4>
+                  <div className="text-sm text-green-700 space-y-2">
+                    <p><strong>Avoid:</strong> {advice.foodsToAvoid.join(', ')}</p>
+                    <p><strong>Take with:</strong> {advice.foodsToTakeWith.join(', ')}</p>
+                    <p><strong>Timing:</strong> {advice.timingWithMeals}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="side-effects" className="mt-4">
+            <div className="space-y-4">
+              {analysis.sideEffects.map((sideEffect, index) => (
+                <div key={index} className="p-4 border rounded-lg bg-red-50">
+                  <h4 className="font-semibold text-red-800 mb-2">{sideEffect.medication}</h4>
+                  <div className="text-sm text-red-700 space-y-2">
+                    <p><strong>Common:</strong> {sideEffect.commonSideEffects.join(', ')}</p>
+                    <p><strong>Serious:</strong> {sideEffect.seriousSideEffects.join(', ')}</p>
+                    <p><strong>Seek help if:</strong> {sideEffect.whenToSeekHelp.join(', ')}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="education" className="mt-4">
+            <div className="space-y-4">
+              {analysis.patientEducation.map((education, index) => (
+                <div key={index} className="p-4 border rounded-lg bg-purple-50">
+                  <h4 className="font-semibold text-purple-800 mb-2">{education.medication}</h4>
+                  <div className="text-sm text-purple-700 space-y-2">
+                    <div>
+                      <p><strong>Key Points:</strong></p>
+                      <ul className="list-disc list-inside ml-4">
+                        {education.keyPoints.map((point, i) => <li key={i}>{point}</li>)}
+                      </ul>
+                    </div>
+                    <div>
+                      <p><strong>Administration:</strong></p>
+                      <ul className="list-disc list-inside ml-4">
+                        {education.administrationTips.map((tip, i) => <li key={i}>{tip}</li>)}
+                      </ul>
+                    </div>
+                    <p><strong>Storage:</strong> {education.storageInstructions.join(', ')}</p>
+                    <p><strong>Missed Dose:</strong> {education.missedDoseInstructions}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
+      </CardContent>
+    </Card>
+  );
+}
+
+// AI Analysis Panel Component (kept for backward compatibility)
 interface AIAnalysisPanelProps {
   prescription: PrescriptionRequest;
   onClose: () => void;

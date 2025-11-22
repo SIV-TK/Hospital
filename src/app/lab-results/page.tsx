@@ -31,13 +31,20 @@ function AIAnalysisPanel({ analysis }: AIAnalysisProps) {
   if (!analysis) return null;
 
   return (
-    <div className="bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg p-6 border border-purple-200">
-      <div className="flex items-center gap-2 mb-4">
-        <Cpu className="h-6 w-6 text-purple-600" />
-        <h3 className="text-lg font-semibold text-purple-800">AI Analysis</h3>
-        <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">
-          {analysis.confidence}% Confidence
-        </span>
+    <div className="bg-gradient-to-r from-purple-50 via-blue-50 to-indigo-50 rounded-xl p-6 border-0 shadow-lg">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="p-2 bg-gradient-to-r from-purple-500 to-blue-600 rounded-lg">
+          <Cpu className="h-6 w-6 text-white" />
+        </div>
+        <div className="flex-1">
+          <h3 className="text-lg font-bold text-gray-900">AI Clinical Analysis</h3>
+          <div className="flex items-center gap-2 mt-1">
+            <span className="bg-gradient-to-r from-purple-500 to-blue-600 text-white text-xs px-3 py-1 rounded-full font-medium">
+              {analysis.confidence}% Confidence
+            </span>
+            <span className="text-xs text-gray-600">Medical Grade AI</span>
+          </div>
+        </div>
       </div>
       
       <div className="space-y-4">
@@ -215,81 +222,135 @@ export default function LabResultsPage() {
   return (
     <MainLayout>
       <AuthGuard>
-        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header */}
-            <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                Hospital Lab Results Analyzer
-              </h1>
-              <p className="text-xl text-gray-600">
-                AI-Powered Laboratory Management System for Hospital Staff
-              </p>
+            <div className="relative mb-8 p-6 bg-gradient-to-r from-teal-600 via-blue-600 to-indigo-700 rounded-2xl text-white overflow-hidden">
+              <div className="absolute inset-0 bg-black/10"></div>
+              <div className="relative text-center">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="p-3 bg-white/20 rounded-xl backdrop-blur-sm">
+                    <Beaker className="h-10 w-10" />
+                  </div>
+                  <h1 className="text-4xl font-bold">
+                    Lab Results Analyzer
+                  </h1>
+                </div>
+                <p className="text-xl text-blue-100">
+                  AI-Powered Laboratory Management & Analysis System
+                </p>
+                <div className="flex items-center justify-center gap-6 mt-4 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Cpu className="h-4 w-4" />
+                    <span>AI Analysis</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <GraduationCap className="h-4 w-4" />
+                    <span>Medical Grade</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4" />
+                    <span>Real-time Processing</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Stats Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center">
-                  <ClipboardList className="h-8 w-8 text-blue-600" />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Total Orders</p>
-                    <p className="text-2xl font-semibold text-gray-900">{labQueue.dailyStats.totalOrders}</p>
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl shadow-lg p-6 border-0 hover:shadow-xl transition-all duration-300">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-blue-700 mb-1">Total Orders</p>
+                    <p className="text-4xl font-bold text-blue-900">{labQueue.dailyStats.totalOrders}</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className="p-1 bg-blue-200 rounded">
+                        <ClipboardList className="h-3 w-3 text-blue-700" />
+                      </div>
+                      <span className="text-sm font-medium text-blue-700">Today's queue</span>
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg">
+                    <ClipboardList className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center">
-                  <Clock className="h-8 w-8 text-yellow-600" />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Pending</p>
-                    <p className="text-2xl font-semibold text-gray-900">{labQueue.dailyStats.pending}</p>
+              <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl shadow-lg p-6 border-0 hover:shadow-xl transition-all duration-300">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-yellow-700 mb-1">Pending</p>
+                    <p className="text-4xl font-bold text-yellow-900">{labQueue.dailyStats.pending}</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className="p-1 bg-yellow-200 rounded">
+                        <Clock className="h-3 w-3 text-yellow-700" />
+                      </div>
+                      <span className="text-sm font-medium text-yellow-700">In progress</span>
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-gradient-to-br from-yellow-500 to-yellow-600 shadow-lg">
+                    <Clock className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center">
-                  <CheckCircle className="h-8 w-8 text-green-600" />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Completed</p>
-                    <p className="text-2xl font-semibold text-gray-900">{labQueue.dailyStats.completed}</p>
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl shadow-lg p-6 border-0 hover:shadow-xl transition-all duration-300">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-green-700 mb-1">Completed</p>
+                    <p className="text-4xl font-bold text-green-900">{labQueue.dailyStats.completed}</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className="p-1 bg-green-200 rounded">
+                        <CheckCircle className="h-3 w-3 text-green-700" />
+                      </div>
+                      <span className="text-sm font-medium text-green-700">Processed</span>
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 shadow-lg">
+                    <CheckCircle className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center">
-                  <AlertTriangle className="h-8 w-8 text-red-600" />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-gray-600">Critical</p>
-                    <p className="text-2xl font-semibold text-gray-900">{labQueue.dailyStats.criticalResults}</p>
+              <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-xl shadow-lg p-6 border-0 hover:shadow-xl transition-all duration-300">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-red-700 mb-1">Critical</p>
+                    <p className="text-4xl font-bold text-red-900">{labQueue.dailyStats.criticalResults}</p>
+                    <div className="flex items-center gap-2 mt-2">
+                      <div className="p-1 bg-red-200 rounded">
+                        <AlertTriangle className="h-3 w-3 text-red-700" />
+                      </div>
+                      <span className="text-sm font-medium text-red-700">Urgent alerts</span>
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 shadow-lg">
+                    <AlertTriangle className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Tab Navigation */}
-            <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div className="flex space-x-1 bg-gray-100 p-1">
+            <div className="bg-white rounded-2xl shadow-xl overflow-hidden border-0">
+              <div className="flex space-x-1 bg-gradient-to-r from-gray-50 to-gray-100 p-2">
                 {[
-                  { id: 'queue', label: 'Patient Queue', icon: Users },
-                  { id: 'tests', label: 'Lab Tests Directory', icon: Beaker },
-                  { id: 'results', label: 'Results & AI Analysis', icon: BarChart3 },
-                  { id: 'critical', label: 'Critical Results', icon: AlertTriangle }
+                  { id: 'queue', label: 'Patient Queue', icon: Users, color: 'blue' },
+                  { id: 'tests', label: 'Lab Tests Directory', icon: Beaker, color: 'teal' },
+                  { id: 'results', label: 'Results & AI Analysis', icon: BarChart3, color: 'purple' },
+                  { id: 'critical', label: 'Critical Results', icon: AlertTriangle, color: 'red' }
                 ].map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center gap-2 flex-1 py-3 px-4 rounded-md text-sm font-medium transition-colors ${
+                    className={`flex items-center gap-2 flex-1 py-4 px-4 rounded-xl text-sm font-semibold transition-all duration-300 ${
                       activeTab === tab.id
-                        ? 'bg-white text-blue-600 shadow-sm'
-                        : 'text-gray-500 hover:text-gray-700'
+                        ? `bg-white text-${tab.color}-600 shadow-lg transform scale-105`
+                        : 'text-gray-600 hover:text-gray-800 hover:bg-white/50'
                     }`}
                   >
                     <tab.icon className="h-5 w-5" />
-                    {tab.label}
+                    <span className="hidden sm:inline">{tab.label}</span>
                   </button>
                 ))}
               </div>

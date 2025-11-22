@@ -37,6 +37,16 @@ import { useState, useEffect } from 'react';
 
 export default function GeneralDashboard() {
   const { session } = useSession();
+  const [bills, setBills] = useState<GeneralBill[]>([]);
+  const [financialSummary, setFinancialSummary] = useState<FinancialSummary | null>(null);
+  const [showMpesaModal, setShowMpesaModal] = useState(false);
+  const [selectedBill, setSelectedBill] = useState<GeneralBill | null>(null);
+
+  useEffect(() => {
+    if (session) {
+      loadFinanceData();
+    }
+  }, [session]);
   
   if (!session) {
     return (
@@ -53,14 +63,6 @@ export default function GeneralDashboard() {
       </MainLayout>
     );
   }
-  const [bills, setBills] = useState<GeneralBill[]>([]);
-  const [financialSummary, setFinancialSummary] = useState<FinancialSummary | null>(null);
-  const [showMpesaModal, setShowMpesaModal] = useState(false);
-  const [selectedBill, setSelectedBill] = useState<GeneralBill | null>(null);
-
-  useEffect(() => {
-    loadFinanceData();
-  }, []);
 
   const loadFinanceData = async () => {
     const [billsData, summaryData] = await Promise.all([

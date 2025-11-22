@@ -227,45 +227,80 @@ export default function DoctorDashboard() {
       <AuthGuard>
         <div className="container mx-auto p-6 max-w-7xl">
           {/* Header */}
-          <div className="flex justify-between items-center mb-8">
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                Doctor Portal
-              </h1>
-              <p className="text-xl text-gray-600">
-                Patient Care Management System
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-blue-600">
-                <Stethoscope className="h-4 w-4 mr-1" />
-                {session?.name || 'Medical Professional'}
-              </Badge>
+          <div className="relative mb-8 p-6 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-700 rounded-2xl text-white overflow-hidden">
+            <div className="absolute inset-0 bg-black/10"></div>
+            <div className="relative flex justify-between items-center">
+              <div>
+                <h1 className="text-4xl font-bold mb-2 flex items-center gap-3">
+                  <div className="p-2 bg-white/20 rounded-lg backdrop-blur-sm">
+                    <Stethoscope className="h-8 w-8" />
+                  </div>
+                  Doctor Portal
+                </h1>
+                <p className="text-xl text-blue-100">
+                  AI-Powered Patient Care Management
+                </p>
+              </div>
+              <div className="text-right">
+                <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4">
+                  <div className="text-sm text-blue-100">Welcome back</div>
+                  <div className="text-lg font-semibold">{session?.name || 'Dr. Medical Professional'}</div>
+                  <div className="text-xs text-blue-200 mt-1">Online • {new Date().toLocaleDateString()}</div>
+                </div>
+              </div>
             </div>
           </div>
 
           {/* AI Reminders */}
-          <Card className="shadow-lg border-l-4 border-l-orange-500 bg-gradient-to-r from-orange-50 to-white mb-8">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Brain className="h-5 w-5 text-orange-600" />
-                AI Clinical Reminders
+          <Card className="shadow-xl border-0 bg-gradient-to-r from-orange-50 via-red-50 to-pink-50 mb-8">
+            <CardHeader className="pb-4">
+              <CardTitle className="flex items-center gap-3">
+                <div className="p-2 bg-gradient-to-r from-orange-500 to-red-500 rounded-lg">
+                  <Brain className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <div className="text-xl font-bold text-gray-900">AI Clinical Intelligence</div>
+                  <div className="text-sm text-gray-600">Real-time alerts and smart recommendations</div>
+                </div>
               </CardTitle>
-              <CardDescription>Smart alerts and recommendations for patient care</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-3 md:grid-cols-3">
-                <div className="p-3 bg-red-50 rounded-lg border border-red-200">
-                  <p className="text-sm font-medium text-red-900">🚑 Critical Alert</p>
-                  <p className="text-xs text-red-700">John Smith requires immediate cardiac evaluation</p>
+              <div className="grid gap-4 md:grid-cols-3">
+                <div className="relative p-4 bg-white rounded-xl border-l-4 border-red-500 shadow-md hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 bg-red-100 rounded-lg">
+                      <AlertTriangle className="h-5 w-5 text-red-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-red-900 mb-1">Critical Alert</p>
+                      <p className="text-sm text-red-700">John Smith requires immediate cardiac evaluation</p>
+                      <Badge className="mt-2 bg-red-500 hover:bg-red-600">URGENT</Badge>
+                    </div>
+                  </div>
                 </div>
-                <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-                  <p className="text-sm font-medium text-blue-900">📊 Lab Follow-up</p>
-                  <p className="text-xs text-blue-700">3 patients have pending lab result reviews</p>
+                <div className="relative p-4 bg-white rounded-xl border-l-4 border-blue-500 shadow-md hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 bg-blue-100 rounded-lg">
+                      <TestTube className="h-5 w-5 text-blue-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-blue-900 mb-1">Lab Follow-up</p>
+                      <p className="text-sm text-blue-700">3 patients have pending lab result reviews</p>
+                      <Badge variant="outline" className="mt-2 border-blue-500 text-blue-600">REVIEW</Badge>
+                    </div>
+                  </div>
                 </div>
-                <div className="p-3 bg-green-50 rounded-lg border border-green-200">
-                  <p className="text-sm font-medium text-green-900">📝 Documentation</p>
-                  <p className="text-xs text-green-700">2 discharge summaries need completion</p>
+                <div className="relative p-4 bg-white rounded-xl border-l-4 border-green-500 shadow-md hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-3">
+                    <div className="p-2 bg-green-100 rounded-lg">
+                      <FileText className="h-5 w-5 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="font-semibold text-green-900 mb-1">Documentation</p>
+                      <p className="text-sm text-green-700">2 discharge summaries need completion</p>
+                      <Badge variant="outline" className="mt-2 border-green-500 text-green-600">PENDING</Badge>
+                    </div>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -273,79 +308,87 @@ export default function DoctorDashboard() {
 
           {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card className="shadow-md">
+            <Card className="shadow-lg border-0 bg-gradient-to-br from-blue-50 to-blue-100 hover:shadow-xl transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">My Patients</p>
-                    <p className="text-3xl font-bold text-gray-900">{mockPatients.length}</p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <Users className="h-4 w-4 text-blue-600" />
-                      <span className="text-sm text-blue-600">Active cases</span>
+                    <p className="text-sm font-semibold text-blue-700 mb-1">My Patients</p>
+                    <p className="text-4xl font-bold text-blue-900 mb-2">{mockPatients.length}</p>
+                    <div className="flex items-center gap-2">
+                      <div className="p-1 bg-blue-200 rounded">
+                        <Users className="h-3 w-3 text-blue-700" />
+                      </div>
+                      <span className="text-sm font-medium text-blue-700">Active cases</span>
                     </div>
                   </div>
-                  <div className="p-3 rounded-full bg-blue-50">
-                    <Users className="h-6 w-6 text-blue-600" />
+                  <div className="p-4 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg">
+                    <Users className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="shadow-md">
+            <Card className="shadow-lg border-0 bg-gradient-to-br from-red-50 to-red-100 hover:shadow-xl transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Critical Cases</p>
-                    <p className="text-3xl font-bold text-gray-900">
+                    <p className="text-sm font-semibold text-red-700 mb-1">Critical Cases</p>
+                    <p className="text-4xl font-bold text-red-900 mb-2">
                       {mockPatients.filter(p => p.priority === 'high' || p.priority === 'urgent').length}
                     </p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <AlertTriangle className="h-4 w-4 text-red-600" />
-                      <span className="text-sm text-red-600">Needs attention</span>
+                    <div className="flex items-center gap-2">
+                      <div className="p-1 bg-red-200 rounded">
+                        <AlertTriangle className="h-3 w-3 text-red-700" />
+                      </div>
+                      <span className="text-sm font-medium text-red-700">Needs attention</span>
                     </div>
                   </div>
-                  <div className="p-3 rounded-full bg-red-50">
-                    <AlertTriangle className="h-6 w-6 text-red-600" />
+                  <div className="p-4 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 shadow-lg">
+                    <AlertTriangle className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="shadow-md">
+            <Card className="shadow-lg border-0 bg-gradient-to-br from-green-50 to-green-100 hover:shadow-xl transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">Lab Results</p>
-                    <p className="text-3xl font-bold text-gray-900">
+                    <p className="text-sm font-semibold text-green-700 mb-1">Lab Results</p>
+                    <p className="text-4xl font-bold text-green-900 mb-2">
                       {mockPatients.reduce((acc, p) => acc + p.labResults.length, 0)}
                     </p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <TestTube className="h-4 w-4 text-green-600" />
-                      <span className="text-sm text-green-600">Pending review</span>
+                    <div className="flex items-center gap-2">
+                      <div className="p-1 bg-green-200 rounded">
+                        <TestTube className="h-3 w-3 text-green-700" />
+                      </div>
+                      <span className="text-sm font-medium text-green-700">Pending review</span>
                     </div>
                   </div>
-                  <div className="p-3 rounded-full bg-green-50">
-                    <TestTube className="h-6 w-6 text-green-600" />
+                  <div className="p-4 rounded-2xl bg-gradient-to-br from-green-500 to-green-600 shadow-lg">
+                    <TestTube className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            <Card className="shadow-md">
+            <Card className="shadow-lg border-0 bg-gradient-to-br from-purple-50 to-purple-100 hover:shadow-xl transition-all duration-300">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-gray-600">AI Alerts</p>
-                    <p className="text-3xl font-bold text-gray-900">
+                    <p className="text-sm font-semibold text-purple-700 mb-1">AI Alerts</p>
+                    <p className="text-4xl font-bold text-purple-900 mb-2">
                       {mockPatients.reduce((acc, p) => acc + p.aiRecommendations.filter(r => r.priority === 'urgent').length, 0)}
                     </p>
-                    <div className="flex items-center gap-1 mt-1">
-                      <Brain className="h-4 w-4 text-purple-600" />
-                      <span className="text-sm text-purple-600">AI recommendations</span>
+                    <div className="flex items-center gap-2">
+                      <div className="p-1 bg-purple-200 rounded">
+                        <Brain className="h-3 w-3 text-purple-700" />
+                      </div>
+                      <span className="text-sm font-medium text-purple-700">AI recommendations</span>
                     </div>
                   </div>
-                  <div className="p-3 rounded-full bg-purple-50">
-                    <Brain className="h-6 w-6 text-purple-600" />
+                  <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-500 to-purple-600 shadow-lg">
+                    <Brain className="h-8 w-8 text-white" />
                   </div>
                 </div>
               </CardContent>
@@ -354,11 +397,23 @@ export default function DoctorDashboard() {
 
           {/* Main Content */}
           <Tabs value={selectedTab} onValueChange={setSelectedTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="consultation">AI Consultation</TabsTrigger>
-              <TabsTrigger value="patients">Patient Management</TabsTrigger>
-              <TabsTrigger value="overview">Quick Overview</TabsTrigger>
-              <TabsTrigger value="analytics">Treatment Analytics</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-4 bg-gray-100 p-1 rounded-xl">
+              <TabsTrigger value="consultation" className="data-[state=active]:bg-white data-[state=active]:shadow-md rounded-lg font-medium">
+                <Brain className="h-4 w-4 mr-2" />
+                AI Consultation
+              </TabsTrigger>
+              <TabsTrigger value="patients" className="data-[state=active]:bg-white data-[state=active]:shadow-md rounded-lg font-medium">
+                <Users className="h-4 w-4 mr-2" />
+                Patient Management
+              </TabsTrigger>
+              <TabsTrigger value="overview" className="data-[state=active]:bg-white data-[state=active]:shadow-md rounded-lg font-medium">
+                <Monitor className="h-4 w-4 mr-2" />
+                Quick Overview
+              </TabsTrigger>
+              <TabsTrigger value="analytics" className="data-[state=active]:bg-white data-[state=active]:shadow-md rounded-lg font-medium">
+                <TrendingUp className="h-4 w-4 mr-2" />
+                Analytics
+              </TabsTrigger>
             </TabsList>
 
             {/* AI Consultation Tab */}
@@ -678,11 +733,17 @@ export default function DoctorDashboard() {
                       </Card>
                     </div>
                   ) : (
-                    <Card className="h-96 flex items-center justify-center">
-                      <div className="text-center">
-                        <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                        <h3 className="text-lg font-medium text-gray-900 mb-2">Select a Patient</h3>
-                        <p className="text-gray-600">Choose a patient from the list to view their details and manage their care.</p>
+                    <Card className="h-96 flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 border-0 shadow-xl">
+                      <div className="text-center p-8">
+                        <div className="p-6 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl shadow-lg mb-6 mx-auto w-fit">
+                          <Users className="h-12 w-12 text-white" />
+                        </div>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-3">Select Patient for Consultation</h3>
+                        <p className="text-gray-600 mb-6 max-w-md">Choose a patient from the list to view their comprehensive medical details, AI recommendations, and manage their care.</p>
+                        <div className="flex items-center justify-center gap-2 text-sm text-blue-600">
+                          <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                          <span>Ready for patient selection</span>
+                        </div>
                       </div>
                     </Card>
                   )}
@@ -939,57 +1000,99 @@ export default function DoctorDashboard() {
 
           {/* Hospital Services Quick Access */}
           <div className="mt-8">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Building2 className="h-5 w-5 text-blue-600" />
-                  Hospital Services
+            <Card className="shadow-xl border-0 bg-gradient-to-r from-gray-50 via-blue-50 to-indigo-50">
+              <CardHeader className="pb-6">
+                <CardTitle className="flex items-center gap-3">
+                  <div className="p-3 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl shadow-lg">
+                    <Building2 className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-gray-900">Hospital Services</div>
+                    <div className="text-sm text-gray-600">Quick access to specialized departments and medical services</div>
+                  </div>
                 </CardTitle>
-                <CardDescription>Quick access to hospital departments and services</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                   <Link href="/cardiology">
-                    <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2 hover:bg-red-50">
-                      <Heart className="h-6 w-6 text-red-600" />
-                      <span className="text-sm font-medium">Cardiology</span>
-                    </Button>
+                    <Card className="h-24 bg-gradient-to-br from-red-50 to-red-100 border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+                      <CardContent className="p-4 flex flex-col items-center justify-center h-full">
+                        <div className="p-2 bg-gradient-to-br from-red-500 to-red-600 rounded-lg mb-2 group-hover:scale-110 transition-transform">
+                          <Heart className="h-5 w-5 text-white" />
+                        </div>
+                        <span className="text-sm font-semibold text-red-800">Cardiology</span>
+                      </CardContent>
+                    </Card>
                   </Link>
                   <Link href="/emergency">
-                    <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2 hover:bg-red-50">
-                      <AlertTriangle className="h-6 w-6 text-red-600" />
-                      <span className="text-sm font-medium">Emergency</span>
-                    </Button>
+                    <Card className="h-24 bg-gradient-to-br from-orange-50 to-orange-100 border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+                      <CardContent className="p-4 flex flex-col items-center justify-center h-full">
+                        <div className="p-2 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg mb-2 group-hover:scale-110 transition-transform">
+                          <AlertTriangle className="h-5 w-5 text-white" />
+                        </div>
+                        <span className="text-sm font-semibold text-orange-800">Emergency</span>
+                      </CardContent>
+                    </Card>
                   </Link>
                   <Link href="/pediatrics">
-                    <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2 hover:bg-blue-50">
-                      <Users className="h-6 w-6 text-blue-600" />
-                      <span className="text-sm font-medium">Pediatrics</span>
-                    </Button>
+                    <Card className="h-24 bg-gradient-to-br from-blue-50 to-blue-100 border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+                      <CardContent className="p-4 flex flex-col items-center justify-center h-full">
+                        <div className="p-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg mb-2 group-hover:scale-110 transition-transform">
+                          <Users className="h-5 w-5 text-white" />
+                        </div>
+                        <span className="text-sm font-semibold text-blue-800">Pediatrics</span>
+                      </CardContent>
+                    </Card>
                   </Link>
                   <Link href="/surgery">
-                    <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2 hover:bg-green-50">
-                      <Activity className="h-6 w-6 text-green-600" />
-                      <span className="text-sm font-medium">Surgery</span>
-                    </Button>
+                    <Card className="h-24 bg-gradient-to-br from-green-50 to-green-100 border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+                      <CardContent className="p-4 flex flex-col items-center justify-center h-full">
+                        <div className="p-2 bg-gradient-to-br from-green-500 to-green-600 rounded-lg mb-2 group-hover:scale-110 transition-transform">
+                          <Activity className="h-5 w-5 text-white" />
+                        </div>
+                        <span className="text-sm font-semibold text-green-800">Surgery</span>
+                      </CardContent>
+                    </Card>
                   </Link>
                   <Link href="/pharmacy">
-                    <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2 hover:bg-purple-50">
-                      <Pill className="h-6 w-6 text-purple-600" />
-                      <span className="text-sm font-medium">Pharmacy</span>
-                    </Button>
+                    <Card className="h-24 bg-gradient-to-br from-purple-50 to-purple-100 border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+                      <CardContent className="p-4 flex flex-col items-center justify-center h-full">
+                        <div className="p-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg mb-2 group-hover:scale-110 transition-transform">
+                          <Pill className="h-5 w-5 text-white" />
+                        </div>
+                        <span className="text-sm font-semibold text-purple-800">Pharmacy</span>
+                      </CardContent>
+                    </Card>
                   </Link>
                   <Link href="/blood-bank">
-                    <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2 hover:bg-pink-50">
-                      <Activity className="h-6 w-6 text-pink-600" />
-                      <span className="text-sm font-medium">Blood Bank</span>
-                    </Button>
+                    <Card className="h-24 bg-gradient-to-br from-pink-50 to-pink-100 border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+                      <CardContent className="p-4 flex flex-col items-center justify-center h-full">
+                        <div className="p-2 bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg mb-2 group-hover:scale-110 transition-transform">
+                          <Activity className="h-5 w-5 text-white" />
+                        </div>
+                        <span className="text-sm font-semibold text-pink-800">Blood Bank</span>
+                      </CardContent>
+                    </Card>
                   </Link>
                   <Link href="/blood-donation">
-                    <Button variant="outline" className="w-full h-20 flex flex-col items-center justify-center gap-2 hover:bg-red-50">
-                      <Heart className="h-6 w-6 text-red-600" />
-                      <span className="text-sm font-medium">Blood Donation</span>
-                    </Button>
+                    <Card className="h-24 bg-gradient-to-br from-rose-50 to-rose-100 border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+                      <CardContent className="p-4 flex flex-col items-center justify-center h-full">
+                        <div className="p-2 bg-gradient-to-br from-rose-500 to-red-500 rounded-lg mb-2 group-hover:scale-110 transition-transform">
+                          <Heart className="h-5 w-5 text-white" />
+                        </div>
+                        <span className="text-sm font-semibold text-rose-800">Blood Donation</span>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                  <Link href="/lab-results">
+                    <Card className="h-24 bg-gradient-to-br from-teal-50 to-teal-100 border-0 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer group">
+                      <CardContent className="p-4 flex flex-col items-center justify-center h-full">
+                        <div className="p-2 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg mb-2 group-hover:scale-110 transition-transform">
+                          <TestTube className="h-5 w-5 text-white" />
+                        </div>
+                        <span className="text-sm font-semibold text-teal-800">Lab Results</span>
+                      </CardContent>
+                    </Card>
                   </Link>
                 </div>
               </CardContent>

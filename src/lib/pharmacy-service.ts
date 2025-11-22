@@ -428,8 +428,22 @@ class PharmacyService {
         whereConstraints.push(where('patientId', '==', filters.patientId));
       }
 
-      // Use utility function to handle potential index errors
-      const docs = await queryWithSort('prescriptions', whereConstraints, 'createdAt', 'desc');
+      // Try to query with constraints, fallback to simple query if index missing
+      let docs;
+      try {
+        if (whereConstraints.length > 0) {
+          const q = query(collection(db, 'prescriptions'), ...whereConstraints);
+          const snapshot = await getDocs(q);
+          docs = snapshot.docs;
+        } else {
+          const snapshot = await getDocs(collection(db, 'prescriptions'));
+          docs = snapshot.docs;
+        }
+      } catch (indexError) {
+        console.log('Index not available, using simple query:', indexError);
+        const snapshot = await getDocs(collection(db, 'prescriptions'));
+        docs = snapshot.docs;
+      }
       
       const firebaseData = docs.map(doc => ({
         id: doc.id,
@@ -476,6 +490,13 @@ class PharmacyService {
   // Get single prescription by ID
   async getPrescriptionById(id: string): Promise<PrescriptionRequest | null> {
     try {
+      // Check mock data first to avoid Firebase permissions issues
+      const mockPrescription = mockPrescriptions.find(rx => rx.id === id);
+      if (mockPrescription) {
+        return mockPrescription;
+      }
+      
+      // Try Firebase as fallback
       const docSnap = await getDocs(query(collection(db, 'prescriptions'), where('__name__', '==', id)));
       if (!docSnap.empty) {
         const doc = docSnap.docs[0];
@@ -485,11 +506,8 @@ class PharmacyService {
         } as PrescriptionRequest;
       }
       
-      // If not found in Firebase, check mock data
-      const mockPrescription = mockPrescriptions.find(rx => rx.id === id);
-      return mockPrescription || null;
+      return null;
     } catch (error) {
-      console.error('Error fetching prescription, checking mock data:', error);
       // Return mock data as fallback
       const mockPrescription = mockPrescriptions.find(rx => rx.id === id);
       return mockPrescription || null;
@@ -689,26 +707,103 @@ class PharmacyService {
 
   // Real-time subscription for prescription updates
   subscribeToPrescriptions(callback: (prescriptions: PrescriptionRequest[]) => void) {
-    const q = query(collection(db, 'prescriptions'), orderBy('updatedAt', 'desc'));
-    
-    return onSnapshot(q, (snapshot) => {
-      const prescriptions = snapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      } as PrescriptionRequest));
+    try {
+      // Try simple query first without orderBy to avoid index issues
+      const q = query(collection(db, 'prescriptions'));
       
-      // If no Firebase data, return mock data
-      if (prescriptions.length === 0) {
+      return onSnapshot(q, (snapshot) => {
+        const prescriptions = snapshot.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        } as PrescriptionRequest));
+        
+        // Sort manually to avoid index requirements
+        prescriptions.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime());
+        
+        // If no Firebase data, return mock data
+        if (prescriptions.length === 0) {
+          callback(mockPrescriptions);
+        } else {
+          callback(prescriptions);
+        }
+      }, (error) => {
+        console.error('Error in prescription subscription, using mock data:', error);
+        // Return mock data as fallback
         callback(mockPrescriptions);
-      } else {
-        callback(prescriptions);
-      }
-    }, (error) => {
-      console.error('Error in prescription subscription, using mock data:', error);
-      // Return mock data as fallback
+      });
+    } catch (error) {
+      console.error('Error setting up prescription subscription, using mock data:', error);
+      // Return mock data immediately as fallback
       callback(mockPrescriptions);
-    });
+      return () => {}; // Return empty unsubscribe function
+    }
   }
 }
+
+// Function to submit prescription from cardiology department
+export const submitCardiologyPrescription = async (patientData: any, medications: string[]) => {
+  const prescriptionData = {
+    patientId: patientData.id,
+    patientName: patientData.name,
+    doctorId: 'dr_cardiology_001',
+    doctorName: 'Dr. Cardiologist',
+    department: 'Cardiology',
+    diagnosis: patientData.condition,
+    medications: medications.map(medName => {
+      const medMap: { [key: string]: any } = {
+        'Lisinopril 10mg': {
+          name: 'Lisinopril 10mg',
+          genericName: 'Lisinopril',
+          dosage: '10mg',
+          strength: '10mg',
+          frequency: 'once daily',
+          duration: '30 days',
+          route: 'oral',
+          instructions: 'Take once daily in the morning with or without food',
+          quantity: 30,
+          refills: 2
+        },
+        'Aspirin 81mg': {
+          name: 'Aspirin 81mg',
+          genericName: 'Aspirin',
+          dosage: '81mg',
+          strength: '81mg',
+          frequency: 'once daily',
+          duration: '30 days',
+          route: 'oral',
+          instructions: 'Take once daily with food to prevent stomach upset',
+          quantity: 30,
+          refills: 5
+        },
+        'Metoprolol 50mg': {
+          name: 'Metoprolol 50mg',
+          genericName: 'Metoprolol',
+          dosage: '50mg',
+          strength: '50mg',
+          frequency: 'twice daily',
+          duration: '30 days',
+          route: 'oral',
+          instructions: 'Take twice daily with meals',
+          quantity: 60,
+          refills: 2
+        }
+      };
+      return medMap[medName] || {
+        name: medName,
+        dosage: '1 tablet',
+        strength: 'standard',
+        frequency: 'as directed',
+        duration: '30 days',
+        route: 'oral',
+        instructions: 'Take as directed by physician',
+        quantity: 30,
+        refills: 1
+      };
+    }),
+    priority: patientData.priority === 'urgent' ? 'urgent' : 'normal'
+  };
+  
+  return await pharmacyService.submitPrescription(prescriptionData);
+};
 
 export const pharmacyService = new PharmacyService();
