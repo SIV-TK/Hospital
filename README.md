@@ -1,6 +1,13 @@
 # MediAssist AI - Hospital Management System
 
-A comprehensive AI-powered hospital management system built with Next.js 15, Firebase, and Google AI (Genkit). This platform digitizes and streamlines all hospital operations from patient registration to discharge.
+**Developed by:** James Kariuki  
+**Contact:** jamexkarix583@gmail.com | +254 718 845 849
+
+**Built for:** AI HACKATHON 2025 EDITION  
+**Hosted by:** NIRU - Centre for Research and Innovation  
+**Theme:** AI for National Prosperity: Leveraging Innovation for Sustainable Development and Security
+
+A comprehensive AI-powered hospital management system built with Next.js 15, Firebase, and Google AI (Genkit). This platform digitizes and streamlines all hospital operations from patient registration to discharge, contributing to national healthcare prosperity through innovative AI solutions.
 
 ## 🏥 Core Features
 
@@ -235,13 +242,6 @@ firebase deploy
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-For support and questions:
-- Create an issue in the repository
-- Contact the development team
-- Check the documentation
 
 ---
 
